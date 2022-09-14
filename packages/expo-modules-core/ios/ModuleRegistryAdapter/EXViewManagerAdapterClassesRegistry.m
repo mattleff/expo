@@ -47,8 +47,9 @@ static dispatch_once_t directEventBlockImplementationOnceToken;
     class_addMethod(metaClass, NSSelectorFromString([@"propConfig_" stringByAppendingString:eventName]), directEventBlockImplementation, "@@:");
   }
 
+  __weak EXViewManager *weakViewManager;
   IMP viewManagerImp = imp_implementationWithBlock(^{
-    return viewManager;
+    return weakViewManager;
   });
   class_addMethod(viewManagerAdapterClass, NSSelectorFromString(@"viewManager"), viewManagerImp, "@@:");
 
